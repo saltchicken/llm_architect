@@ -14,8 +14,10 @@ It takes a basic project description and wraps it in strict engineering constrai
 
 Ensure you have Rust and Cargo installed.  
 \# Clone the repository  
+```
 git clone \[https://github.com/yourusername/llm\_architect.git\](https://github.com/yourusername/llm\_architect.git)  
 cd llm\_architect
+```
 
 \# Build the project  
 cargo build \--release

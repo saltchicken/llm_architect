@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 clap = { version = "4.5", features = ["derive"] }
+code_context = { git = "https://github.com/saltchicken/code_context.git", rev = "118fb973baed53bd9816052ed9dbdad90739db5b" }

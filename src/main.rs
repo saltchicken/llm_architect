@@ -1,6 +1,9 @@
 use clap::Parser;
-use std::fs;
 use std::io::{self, Read};
+use std::path::PathBuf;
+
+
+use code_context::app::{generate, models::RuntimeConfig};
 
 /// This allows us to pass the project description and target stack easily.
 #[derive(Parser, Debug)]
@@ -17,8 +20,10 @@ struct Args {
     #[arg(short, long)]
     context: Option<String>,
 
+
+    /// If provided, it scans this directory using code_context.
     #[arg(long)]
-    code_context: Option<String>,
+    scan: Option<PathBuf>,
 
     /// If set, reads the description from Stdin instead of an argument
     #[arg(long)]
@@ -39,16 +44,32 @@ fn main() {
             .unwrap_or_else(|| "A generic software project".to_string())
     };
 
-    let reference_code = if let Some(path) = &args.code_context {
-        fs::read_to_string(path).unwrap_or_else(|_| {
-            eprintln!("⚠️ Warning: Could not read code context file: {}", path);
-            String::new()
-        })
+
+    let reference_code = if let Some(path) = args.scan {
+        println!("🔍 Scanning directory: {:?}", path);
+
+
+        // We default to including everything, relying on .gitignore (handled by scanner) to filter noise.
+        let config = RuntimeConfig {
+            include: vec!["**/*".to_string()],
+            exclude: vec![], // Add specific excludes here if needed
+            include_in_tree: vec![],
+            tree_only_output: false,
+        };
+
+        match generate(config, path) {
+            Ok(context) => context,
+            Err(e) => {
+                eprintln!("⚠️ Warning: Failed to scan directory: {}", e);
+                String::new()
+            }
+        }
     } else {
         String::new()
     };
 
     let extra_context = args.context.unwrap_or_default();
+
     let design_doc = generate_design_prompt(
         &project_description,
         &args.stack,
@@ -146,4 +167,3 @@ Please response in the following order:
         entry_point_rule = entry_point_rule
     )
 }
-

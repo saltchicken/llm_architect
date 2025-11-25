@@ -339,6 +339,7 @@ dependencies = [
 name = "llm_architect"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "clap",
  "code_context",
 ]

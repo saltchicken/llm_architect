@@ -207,21 +207,23 @@ fn format_constraints(ctx: &str) -> String {
         format!("\n## CONSTRAINTS\nUser provided:\n- {}\n", ctx)
     }
 }
-
 fn format_reference(code: &str) -> String {
     if code.is_empty() {
-        String::new()
-    } else {
-        format!(
-            r#"
+        return String::new();
+    }
+
+    let fence = if code.contains("```") { "````" } else { "```" };
+
+    format!(
+        r#"
 ## REFERENCE CODEBASE
 The user provided the following context:
 
-```xml
-{}
-```
+{fence}xml
+{content}
+{fence}
 "#,
-            code
-        )
-    }
+        fence = fence,
+        content = code
+    )
 }

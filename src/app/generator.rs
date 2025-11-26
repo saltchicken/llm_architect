@@ -4,7 +4,6 @@ use super::cli::PromptMode;
 
 pub struct GeneratorContext {
     pub description: String,
-    pub stack: String,
     pub specific_constraints: String,
     pub reference_code: String,
 }
@@ -30,7 +29,7 @@ fn generate_architecture_prompt(ctx: &GeneratorContext) -> String {
         r#"# PROMPT FOR LLM: PROJECT ARCHITECTURE & CODE GENERATION
 
 ## 1. ROLE DEFINITION
-You are an expert Senior Software Engineer and System Architect specializing in **{stack}**.
+You are an expert Senior Software Engineer and System Architect specializing in **Rust**.
 Your goal is to take the project description below and produce a complete, production-ready implementation plan and codebase.
 
 ## 2. PROJECT DESCRIPTION
@@ -60,7 +59,6 @@ Please adhere to the following strict design principles:
 
 ### Phase 3: Usage Instructions
 "#,
-        stack = ctx.stack,
         description = ctx.description,
         constraints = constraints,
         reference = reference,
@@ -76,7 +74,7 @@ fn generate_review_prompt(ctx: &GeneratorContext) -> String {
         r#"# PROMPT FOR LLM: SENIOR CODE REVIEW
 
 ## 1. ROLE DEFINITION
-You are a Principal Engineer specializing in **{stack}**.
+You are a Principal Engineer specializing in **Rust**.
 Your goal is to review the provided code/requirements and identify security flaws, performance bottlenecks, and anti-patterns.
 
 ## 2. CONTEXT
@@ -86,14 +84,13 @@ Your goal is to review the provided code/requirements and identify security flaw
 ## 3. REVIEW GUIDELINES
 1.  **Security:** Check for injection vulnerabilities and unsafe data handling.
 2.  **Performance:** Identify O(n^2) operations or unnecessary allocations.
-3.  **Readability:** Enforce idiomatic {stack} patterns.
+3.  **Readability:** Enforce idiomatic Rust patterns.
 
 ## 4. REQUIRED OUTPUT
 1.  **Executive Summary:** High-level health check.
 2.  **Critical Issues:** Must-fix items.
 3.  **Refactoring Suggestions:** Concrete code blocks showing the "Better" way.
 "#,
-        stack = ctx.stack,
         description = ctx.description,
         constraints = constraints,
         reference = reference,
@@ -108,7 +105,7 @@ fn generate_refactor_prompt(ctx: &GeneratorContext) -> String {
         r#"# PROMPT FOR LLM: MODERNIZATION & REFACTORING
 
 ## 1. ROLE DEFINITION
-You are a specialist in technical debt reduction and **{stack}** modernization.
+You are a specialist in technical debt reduction and **Rust** modernization.
 
 ## 2. GOAL
 Refactor the codebase described below to meet modern standards (Clean Code, SOLID principles).
@@ -123,7 +120,6 @@ Refactor the codebase described below to meet modern standards (Clean Code, SOLI
 1.  **Before/After Analysis:** Briefly explain why the change is needed.
 2.  **Refactored Code:** Complete, compile-ready files.
 "#,
-        stack = ctx.stack,
         description = ctx.description,
         constraints = constraints,
         reference = reference,
@@ -229,4 +225,3 @@ The user provided the following context:
         )
     }
 }
-

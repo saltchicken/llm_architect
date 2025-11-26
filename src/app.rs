@@ -1,6 +1,5 @@
 // src/app.rs
 
-
 pub mod cli;
 pub mod context;
 pub mod generator;
@@ -9,19 +8,15 @@ use anyhow::Result;
 use clap::Parser;
 use std::io::{self, Read};
 
-
 use self::cli::Args;
 use self::context::scan_directory;
 use self::generator::{GeneratorContext, generate_prompt};
 
 /// Main application logic
 pub fn run() -> Result<()> {
-
     let args = Args::parse();
 
-
     let project_description = get_description(&args)?;
-
 
     let reference_code = if let Some(path) = args.scan {
         eprintln!("🔍 Scanning directory: {:?}", path);
@@ -32,11 +27,9 @@ pub fn run() -> Result<()> {
 
     let context = GeneratorContext {
         description: project_description,
-        stack: args.stack,
         specific_constraints: args.context.unwrap_or_default(),
         reference_code,
     };
-
 
     let output = generate_prompt(args.mode, &context);
 
@@ -58,3 +51,4 @@ fn get_description(args: &Args) -> Result<String> {
             .unwrap_or_else(|| "A generic software project".to_string()))
     }
 }
+

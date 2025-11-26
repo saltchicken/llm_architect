@@ -10,11 +10,6 @@ pub struct Args {
     #[arg(short, long)]
     pub description: Option<String>,
 
-    /// The specific programming language or tech stack
-    // ‼️ Change: Default value changed to "Rust" to reflect project focus
-    #[arg(short, long, default_value = "Rust")]
-    pub stack: String,
-
     /// Specific constraints or library requirements
     #[arg(short, long)]
     pub context: Option<String>,
@@ -42,4 +37,3 @@ pub enum PromptMode {
 
     Readme,
 }
-

@@ -6,6 +6,7 @@ use std::path::PathBuf;
 
 pub fn scan_directory(path: PathBuf) -> Result<String> {
     let config = RuntimeConfig {
+        // NOTE: This is designed for Rust projects
         include: vec!["**/*.rs".to_string(), "**/*.toml".to_string()],
         exclude: vec![],
         include_in_tree: vec![],

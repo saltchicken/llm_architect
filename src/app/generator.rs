@@ -19,9 +19,6 @@ pub fn generate_prompt(mode: PromptMode, ctx: &GeneratorContext) -> String {
 }
 
 fn generate_architecture_prompt(ctx: &GeneratorContext) -> String {
-    // ‼️ Change: Removed conditional logic. The Rust-specific entry point rule is now hardcoded.
-    let entry_point_rule = "6.  **Entry Point Structure:** Refactor the code so that main.rs is a minimal entry point. Move the application logic into a module folder named app. Use src/app.rs as the module root.";
-
     let constraints = format_constraints(&ctx.specific_constraints);
     let reference = format_reference(&ctx.reference_code);
 
@@ -44,7 +41,7 @@ Please adhere to the following strict design principles:
 3.  **Type Safety:** Leverage the type system.
 4.  **Comments:** Self-documenting code preferred.
 5.  **Configuration:** No magic numbers.
-{entry_point_rule}
+6.  **Entry Point Structure:** Refactor the code so that main.rs is a minimal entry point. Move the application logic into a module folder named app. Use src/app.rs as the module root.
 7.  **Refactoring Strategy:** Aggressive 'Extract Method'.
 8.  **Testing:** Include a testing strategy.
 
@@ -62,7 +59,6 @@ Please adhere to the following strict design principles:
         description = ctx.description,
         constraints = constraints,
         reference = reference,
-        entry_point_rule = entry_point_rule
     )
 }
 

@@ -68,6 +68,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a23eb6b1614318a8071c9b2521f36b424b2c83db5eb3a0fead4a6c0809af6e61"
 
 [[package]]
+name = "architect"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "code_context",
+]
+
+[[package]]
 name = "bitflags"
 version = "2.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -333,15 +342,6 @@ checksum = "416f7e718bdb06000964960ffa43b4335ad4012ae8b99060261aa4a8088d5ccb"
 dependencies = [
  "bitflags",
  "libc",
-]
-
-[[package]]
-name = "llm_architect"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "clap",
- "code_context",
 ]
 
 [[package]]

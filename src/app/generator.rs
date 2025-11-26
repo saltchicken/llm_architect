@@ -1,6 +1,5 @@
 // src/app/generator.rs
 
-
 use super::cli::PromptMode;
 
 pub struct GeneratorContext {
@@ -11,7 +10,6 @@ pub struct GeneratorContext {
 }
 
 pub fn generate_prompt(mode: PromptMode, ctx: &GeneratorContext) -> String {
-
     match mode {
         PromptMode::Architecture => generate_architecture_prompt(ctx),
         PromptMode::CodeReview => generate_review_prompt(ctx),
@@ -21,13 +19,9 @@ pub fn generate_prompt(mode: PromptMode, ctx: &GeneratorContext) -> String {
     }
 }
 
-
 fn generate_architecture_prompt(ctx: &GeneratorContext) -> String {
-    let entry_point_rule = if ctx.stack.to_lowercase().contains("rust") {
-        "6.  **Entry Point Structure:** Refactor the code so that main.rs is a minimal entry point. Move the application logic into a module folder named app. Use src/app.rs as the module root."
-    } else {
-        "6.  **Entry Point Structure:** Keep the main entry file minimal. Delegate initialization to a dedicated App class or module."
-    };
+    // ‼️ Change: Removed conditional logic. The Rust-specific entry point rule is now hardcoded.
+    let entry_point_rule = "6.  **Entry Point Structure:** Refactor the code so that main.rs is a minimal entry point. Move the application logic into a module folder named app. Use src/app.rs as the module root.";
 
     let constraints = format_constraints(&ctx.specific_constraints);
     let reference = format_reference(&ctx.reference_code);
@@ -74,7 +68,6 @@ Please adhere to the following strict design principles:
     )
 }
 
-
 fn generate_review_prompt(ctx: &GeneratorContext) -> String {
     let constraints = format_constraints(&ctx.specific_constraints);
     let reference = format_reference(&ctx.reference_code);
@@ -107,7 +100,6 @@ Your goal is to review the provided code/requirements and identify security flaw
     )
 }
 
-
 fn generate_refactor_prompt(ctx: &GeneratorContext) -> String {
     let constraints = format_constraints(&ctx.specific_constraints);
     let reference = format_reference(&ctx.reference_code);
@@ -137,7 +129,6 @@ Refactor the codebase described below to meet modern standards (Clean Code, SOLI
         reference = reference,
     )
 }
-
 
 fn generate_readme_prompt(ctx: &GeneratorContext) -> String {
     // Default style since we don't have a dedicated CLI arg for style yet
@@ -184,7 +175,7 @@ fn generate_readme_prompt(ctx: &GeneratorContext) -> String {
 
     let requirements = r#"## 4. OUTPUT REQUIREMENTS
     Please generate a single `README.md` file code block. Ensure the following sections are included (if applicable based on the code):
-    
+     
     1.  **Title & Badges:** Project name and relevant status badges (CI, License, version).
     2.  **Description:** A clear 'Elevator Pitch' based on the code's functionality.
     3.  **Features:** Bullet points extracted from the actual implemented logic.
@@ -193,7 +184,7 @@ fn generate_readme_prompt(ctx: &GeneratorContext) -> String {
     6.  **Installation:** Step-by-step commands.
     7.  **Usage:** Examples of how to run the tool (CLI flags, API calls).
     8.  **Configuration:** specific environment variables or config options found in the code.
-    
+     
     **Important Content Rule:** Do not include placeholder text like "Insert description here" - **infer it from the code provided.**
     ### **File Generation & Output Formatting Rule**
     When the user's request requires the generation of a file, a complete code snippet, or a document intended to be copied (like a system prompt or a configuration file), you must follow a specific output format.
@@ -205,7 +196,7 @@ fn generate_readme_prompt(ctx: &GeneratorContext) -> String {
     4. **User Feedback:** The copy functionality must provide clear visual feedback, such as changing the button text to "Copied!" for a few seconds. The JavaScript should be robust and compatible with the canvas environment.
     5. **Professional Styling:** The page must be styled using Tailwind CSS for a clean, modern, and usable interface.
     This rule should only be overridden if the user explicitly asks for a different format, such as "show me the rendered markdown" or "just give me the raw code block."
-    
+     
     ---
     *Begin by analyzing the code structure above, then generate the HTML-wrapped README.*"#;
 
@@ -238,3 +229,4 @@ The user provided the following context:
         )
     }
 }
+

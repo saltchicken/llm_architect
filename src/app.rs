@@ -16,9 +16,8 @@ use self::generator::{
 /// Main application logic
 pub fn run() -> Result<()> {
     let args = Args::parse();
-
-    let reference_code = scan_directory(env::current_dir()?)?;
-
+    // ‼️ Change: Pass the preset argument from CLI to the scanner
+    let reference_code = scan_directory(env::current_dir()?, args.preset.clone())?;
     let command = match args.command {
         Some(cmd) => cmd,
         None => {
@@ -40,5 +39,6 @@ pub fn run() -> Result<()> {
     };
 
     println!("{}", output);
+
     Ok(())
 }

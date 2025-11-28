@@ -73,7 +73,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "clap",
- "code_context",
+ "code-context",
 ]
 
 [[package]]
@@ -139,9 +139,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a1d728cc89cf3aee9ff92b05e62b19ee65a02b5702cff7d5a377e32c6ae29d8d"
 
 [[package]]
-name = "code_context"
+name = "code-context"
 version = "0.1.0"
-source = "git+https://github.com/saltchicken/code_context.git?rev=118fb973baed53bd9816052ed9dbdad90739db5b#118fb973baed53bd9816052ed9dbdad90739db5b"
+source = "git+https://github.com/saltchicken/code-context.git#6f7fa533ea565bc7b0d6fde57d156cbfc2348096"
 dependencies = [
  "anyhow",
  "clap",

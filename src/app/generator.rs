@@ -1,14 +1,8 @@
 use super::cli::{ArchitectureArgs, CodeReviewArgs, GenericArgs, ReadmeArgs, RefactorArgs};
 
 pub fn generate_generic_prompt(args: &GenericArgs, reference_code: &str) -> String {
-    format!(
-        r#"{prompt}
 
-{reference}
-        "#,
-        prompt = args.prompt,
-        reference = reference_code,
-    )
+    format!("{}\n\n{}", args.prompt, reference_code)
 }
 
 pub fn generate_architecture_prompt(args: &ArchitectureArgs, reference_code: &str) -> String {
@@ -154,7 +148,7 @@ pub fn generate_readme_prompt(args: &ReadmeArgs, reference_code: &str) -> String
 
     let requirements = r#"## 4. OUTPUT REQUIREMENTS
     Please generate a single `README.md` file code block. Ensure the following sections are included (if applicable based on the code):
-      
+       
     1.  **Title & Badges:** Project name and relevant status badges (CI, License, version).
     2.  **Description:** A clear 'Elevator Pitch' based on the code's functionality.
     3.  **Features:** Bullet points extracted from the actual implemented logic.
@@ -163,7 +157,7 @@ pub fn generate_readme_prompt(args: &ReadmeArgs, reference_code: &str) -> String
     6.  **Installation:** Step-by-step commands.
     7.  **Usage:** Examples of how to run the tool (CLI flags, API calls).
     8.  **Configuration:** specific environment variables or config options found in the code.
-      
+       
     **Important Content Rule:** Do not include placeholder text like "Insert description here" - **infer it from the code provided.**
 
     ### **File Generation & Output Formatting Rule**
@@ -176,7 +170,7 @@ pub fn generate_readme_prompt(args: &ReadmeArgs, reference_code: &str) -> String
     4. **User Feedback:** The copy functionality must provide clear visual feedback, such as changing the button text to "Copied!" for a few seconds. The JavaScript should be robust and compatible with the canvas environment.
     5. **Professional Styling:** The page must be styled using Tailwind CSS for a clean, modern, and usable interface.
     This rule should only be overridden if the user explicitly asks for a different format, such as "show me the rendered markdown" or "just give me the raw code block."
-      
+       
     ---
     *Begin by analyzing the code structure above, then generate the HTML-wrapped README.*"#;
 

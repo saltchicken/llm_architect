@@ -75,7 +75,7 @@ checksum = "a23eb6b1614318a8071c9b2521f36b424b2c83db5eb3a0fead4a6c0809af6e61"
 
 [[package]]
 name = "architect"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "anyhow",
  "clap",
@@ -210,8 +210,7 @@ checksum = "a1d728cc89cf3aee9ff92b05e62b19ee65a02b5702cff7d5a377e32c6ae29d8d"
 
 [[package]]
 name = "code-context"
-version = "0.1.0"
-source = "git+https://github.com/saltchicken/code-context.git#6f7fa533ea565bc7b0d6fde57d156cbfc2348096"
+version = "0.2.0"
 dependencies = [
  "anyhow",
  "clap",
@@ -1551,15 +1550,16 @@ dependencies = [
 [[package]]
 name = "sql-context"
 version = "0.1.0"
-source = "git+https://github.com/saltchicken/sql-context.git#f73e0344ae2c170b0deeeb9784057d68efc1c27a"
 dependencies = [
  "anyhow",
  "clap",
  "dotenvy",
  "env_logger",
  "log",
+ "serde",
  "sqlx",
  "tokio",
+ "toml",
 ]
 
 [[package]]

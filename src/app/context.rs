@@ -25,6 +25,7 @@ pub async fn scan_directory(path: PathBuf, preset_override: Option<String>) -> R
             db_url,
             db_name,
             collect_samples: false,
+            ignore_tables: vec!["sqledger_scripts".to_string()],
         };
 
         // We catch errors here so that a DB failure doesn't prevent code context generation

@@ -1556,10 +1556,8 @@ dependencies = [
  "dotenvy",
  "env_logger",
  "log",
- "serde",
  "sqlx",
  "tokio",
- "toml",
 ]
 
 [[package]]

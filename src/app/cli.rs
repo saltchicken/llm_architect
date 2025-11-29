@@ -1,45 +1,70 @@
-// src/app/cli.rs
-
-
-use clap::{Parser, ValueEnum};
-use std::path::PathBuf;
+use clap::{Parser, Subcommand};
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 pub struct Args {
-    /// The main idea or description of the project/task
+    #[command(subcommand)]
+    pub command: Option<Commands>,
+
+    /// Sets a custom prompt
+    #[arg(short, long)]
+    pub prompt: Option<String>,
+
+    #[arg(long)]
+    pub preset: Option<String>,
+}
+
+#[derive(Subcommand, Debug)]
+pub enum Commands {
+    /// Generate a generic prompt
+    Generic(GenericArgs),
+    /// Generate a full project architecture and implementation plan
+    Architecture(ArchitectureArgs),
+    /// Generate a prompt for reviewing existing code
+    CodeReview(CodeReviewArgs),
+    /// Generate a prompt for refactoring specific logic
+    Refactor(RefactorArgs),
+    /// Generate a prompt for a README file
+    Readme(ReadmeArgs),
+}
+// ... existing code ...
+#[derive(Parser, Debug)]
+pub struct ArchitectureArgs {
+    /// The main idea or description of the project
     #[arg(short, long)]
     pub description: Option<String>,
-
-    /// The specific programming language or tech stack
-    #[arg(short, long, default_value = "General Software")]
-    pub stack: String,
-
     /// Specific constraints or library requirements
     #[arg(short, long)]
     pub context: Option<String>,
-
-    /// Directory to scan for code context
-    #[arg(long)]
-    pub scan: Option<PathBuf>,
-
-    /// Read description from Stdin
-    #[arg(long)]
-    pub stdin: bool,
-
-
-    #[arg(short, long, value_enum, default_value_t = PromptMode::Architecture)]
-    pub mode: PromptMode,
 }
 
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum, Debug)]
-pub enum PromptMode {
-    /// Generate a full project architecture and implementation plan
-    Architecture,
-    /// Generate a prompt for reviewing existing code
-    CodeReview,
-    /// Generate a prompt for refactoring specific logic
-    Refactor,
+#[derive(Parser, Debug)]
+pub struct CodeReviewArgs {
+    /// What specific area to focus the review on
+    #[arg(short, long)]
+    pub focus: Option<String>,
+}
 
-    Readme,
+#[derive(Parser, Debug)]
+pub struct RefactorArgs {
+    /// The specific goal of the refactor (e.g., "Modernize error handling")
+    #[arg(short, long)]
+    pub goal: String,
+}
+
+#[derive(Parser, Debug)]
+pub struct ReadmeArgs {
+    /// Tone of the readme (Specific to this generator only!)
+    #[arg(long, default_value = "Professional and Concise")]
+    pub style: String,
+    /// Extra details to include
+    #[arg(short, long)]
+    pub details: Option<String>,
+}
+
+#[derive(Parser, Debug)]
+pub struct GenericArgs {
+    /// The prompt to generate
+    #[arg(short, long)]
+    pub prompt: String,
 }

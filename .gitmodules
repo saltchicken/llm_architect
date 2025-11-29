@@ -1,0 +1,6 @@
+[submodule "modules/code-context"]
+	path = modules/code-context
+	url = https://github.com/saltchicken/code-context.git
+[submodule "modules/sql-context"]
+	path = modules/sql-context
+	url = https://github.com/saltchicken/sql-context.git

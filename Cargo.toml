@@ -1,9 +1,12 @@
 [package]
 name = "architect"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 
 [dependencies]
 clap = { version = "4.5", features = ["derive"] }
-code_context = { git = "https://github.com/saltchicken/code_context.git", rev = "118fb973baed53bd9816052ed9dbdad90739db5b" }
 anyhow = "1.0"
+tokio = { version = "1.48.0", features = ["full"] }
+dotenvy = "0.15.7"
+code-context = { path = "modules/code-context" }
+sql-context = { path = "modules/sql-context" }

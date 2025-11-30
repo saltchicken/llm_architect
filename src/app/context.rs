@@ -32,7 +32,7 @@ pub async fn scan_directory(path: PathBuf, preset_override: Option<String>) -> R
         match generate_report(&sql_config).await {
             Ok(sql_report) => {
                 output.push_str("\n\n<database_schema>\n");
-                output.push_str(&sql_report);
+                output.push_str(sql_report.trim_end());
                 output.push_str("\n</database_schema>");
             }
             Err(e) => {
@@ -47,4 +47,3 @@ pub async fn scan_directory(path: PathBuf, preset_override: Option<String>) -> R
 
     Ok(output)
 }
-

@@ -33,7 +33,7 @@ Please adhere to the following strict design principles:
 3.  **Type Safety:** Leverage the type system.
 4.  **Comments:** Self-documenting code preferred.
 5.  **Configuration:** No magic numbers.
-6.  **Entry Point Structure:** Refactor the code so that main.rs is a minimal entry point. Move the application logic into a module folder named app. Use src/app.rs as the module root.
+6.  **Entry Point Structure:** Refactor the code so that main.rs is a minimal entry point. Move the application logic into a module folder named app. Use src/app.rs as the module root. Do not include a mod.rs file.
 7.  **Refactoring Strategy:** Aggressive 'Extract Method'.
 8.  **Testing:** Include a testing strategy.
 

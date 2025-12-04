@@ -8,13 +8,12 @@ pub fn generate_improve_prompt(reference_code: &str) -> String {
     format!("How can I improve this project?\n\n{}", reference_code)
 }
 
-pub fn generate_architecture_prompt(args: &ArchitectureArgs, reference_code: &str) -> String {
+pub fn generate_architecture_prompt(args: &ArchitectureArgs) -> String {
     let description = args
         .description
         .as_deref()
         .unwrap_or("A generic software project");
     let constraints = format_constraints(args.context.as_deref().unwrap_or(""));
-    let reference = format_reference(reference_code);
 
     format!(
         r#"# PROMPT FOR LLM: PROJECT ARCHITECTURE & CODE GENERATION
@@ -25,7 +24,7 @@ Your goal is to take the project description below and produce a complete, produ
 ## 2. PROJECT DESCRIPTION
 **User Requirement:**
 "{description}"
-{constraints}{reference}
+{constraints}
 
 ## 5. PREDETERMINED ENGINEERING REQUIREMENTS
 Please adhere to the following strict design principles:
@@ -51,7 +50,6 @@ Please adhere to the following strict design principles:
 "#,
         description = description,
         constraints = constraints,
-        reference = reference,
     )
 }
 
@@ -207,4 +205,3 @@ The user provided the following context:
         content = code
     )
 }
-

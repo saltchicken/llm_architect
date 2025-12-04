@@ -17,10 +17,10 @@ use self::generator::{
 pub async fn run() -> Result<()> {
     let args = Args::parse();
 
-    // ‼️ Capture preset before moving args.command (partial move safety)
+
     let preset = args.preset.clone();
 
-    // ‼️ Resolve the command FIRST to determine if scanning is necessary
+
     let command = match args.command {
         Some(cmd) => cmd,
         None => {
@@ -35,7 +35,7 @@ pub async fn run() -> Result<()> {
         }
     };
 
-    // ‼️ Conditional Scanning: Skip scan_directory for Architecture command
+
     let should_scan = !matches!(command, Commands::Architecture(_));
 
     let reference_code = if should_scan {
